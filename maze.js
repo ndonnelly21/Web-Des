@@ -4,8 +4,14 @@ let ctx;
 let WIDTH = 1000;
 let HEIGHT= 1000;
 //creates canvas (initializes global variables)
+
+
+//Walls
+let walls = [];
+
 let initialized = false;
 //is game initialized?
+
 let mouseX = 0;
 let mouseY = 0;
 //mouse positions
@@ -23,7 +29,7 @@ let mouseClickX = 0;
 let mouseClickY = 0;
 //creates objects when keys are pressed
 let keysDown = {};
-
+//USER INPUT
 addEventListener("keydown", function (e) {
     keysDown[e.key] = true;
 }, false);
@@ -81,7 +87,7 @@ class Sprite {
       }
     }
 }
-
+//player sprite
 class Player extends Sprite {
   constructor(w, h, x, y, c, vx, vy) {
   super(w, h, x, y, c);
@@ -140,4 +146,16 @@ function drawText(color, font, align, base, text, x, y) {
   ctx.textAlign = align;
   ctx.textBaseline = base;
   ctx.fillText(text, x, y);
+}
+
+class Wall extends Sprite {
+  constructor(w, h, x, y, c) {
+    super(w, h, x, y, c);
+    this.type = "normal";
+    }
+    draw() {
+      ctx.fillStyle = this.color;
+      ctx.fillRect(this.x, this.y, this.w, this.h);
+      ctx.strokeRect(this.x, this.y, this.w, this.h);
+    }
 }
